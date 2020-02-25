@@ -1,5 +1,6 @@
 package edu.up.cs301.pig;
 
+import edu.up.cs301.game.GameFramework.Game;
 import edu.up.cs301.game.GameFramework.GameComputerPlayer;
 import edu.up.cs301.game.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.game.GameFramework.infoMessage.GameInfo;
@@ -28,7 +29,19 @@ public class PigComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        // TODO  You will implement this method
+        PigGameState state = (PigGameState)info;
+        if(state.getTurn() != playerNum) {
+            return;
+        } else {
+            int chance = (int)(1+(Math.random()*1));
+            if(chance == 1) {
+                PigRollAction action = new PigRollAction(this);
+                game.sendAction(action);
+            } else {
+                PigHoldAction action = new PigHoldAction(this);
+                game.sendAction(action);
+            }
+        }
     }//receiveInfo
 
 }

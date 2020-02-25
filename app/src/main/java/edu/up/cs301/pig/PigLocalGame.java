@@ -15,11 +15,13 @@ import android.util.Log;
  */
 public class PigLocalGame extends LocalGame {
 
+    private PigGameState offState;
+
     /**
      * This ctor creates a new game state
      */
     public PigLocalGame() {
-        //TODO  You will implement this constructor
+        offState = new PigGameState();
     }
 
     /**
@@ -27,8 +29,11 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected boolean canMove(int playerIdx) {
-        //TODO  You will implement this method
-        return false;
+        if(offState.getTurn() == playerIdx) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -38,8 +43,38 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        //TODO  You will implement this method
-        return false;
+        if(action instanceof PigHoldAction) {
+            if(offState.getTurn() == 0) {
+                offState.setScore0(offState.getScore0() + offState.getCurrentAdd());
+                if(super.players.length == 2) {
+                    offState.setTurn(1);
+                }
+            } else if(this.offState.getTurn() == 1) {
+                offState.setScore1(offState.getScore1() + offState.getCurrentAdd());
+                if(super.players.length == 2) {
+                    offState.setTurn(0);
+                }
+            }
+            offState.setCurrentAdd(0);
+            return true;
+        } else if(action instanceof PigRollAction) {
+            offState.setDieVal((int)(1+(Math.random()*5)));
+            if(offState.getDieVal() != 1) {
+                offState.setCurrentAdd(offState.getCurrentAdd() + offState.getDieVal());
+            } else {
+                offState.setCurrentAdd(0);
+            }
+            if(players.length == 2) {
+                if(offState.getTurn() == 0) {
+                    offState.setTurn(1);
+                } else {
+                    offState.setTurn(0);
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }//makeMove
 
     /**
@@ -47,7 +82,8 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        //TODO  You will implement this method
+        PigGameState copy = new PigGameState(offState);
+        p.sendInfo(copy);
     }//sendUpdatedSate
 
     /**
@@ -59,8 +95,13 @@ public class PigLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        //TODO  You will implement this method
-        return null;
+        if(offState.getScore0() >= 50) {
+            return playerNames[0] + " has won the game with " + offState.getScore0() + "points.";
+        } else if(offState.getScore1() >= 50) {
+            return playerNames[1] + " has won the game with " + offState.getScore1() + "points.";
+        } else {
+            return null;
+        }
     }
 
 }// class PigLocalGame

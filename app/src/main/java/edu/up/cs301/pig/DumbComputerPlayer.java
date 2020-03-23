@@ -12,12 +12,12 @@ import edu.up.cs301.game.GameFramework.utilities.Tickable;
  * @author Andrew M. Nuxoll
  * @version August 2015
  */
-public class PigComputerPlayer extends GameComputerPlayer {
+public class DumbComputerPlayer extends GameComputerPlayer {
 
     /**
      * ctor does nothing extra
      */
-    public PigComputerPlayer(String name) {
+    public DumbComputerPlayer(String name) {
         super(name);
     }
 

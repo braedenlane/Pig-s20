@@ -64,13 +64,13 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
             flash(Color.RED, 1000);
         } else {
             if(this.playerNum == 0) {
-                playerScoreTextView.setText(((PigGameState) info).getScore0());
-                oppScoreTextView.setText(((PigGameState) info).getScore1());
-                turnTotalTextView.setText(((PigGameState) info).getCurrentAdd());
+                playerScoreTextView.setText("" + ((PigGameState) info).getScore0());
+                oppScoreTextView.setText("" + ((PigGameState) info).getScore1());
+                turnTotalTextView.setText("" + ((PigGameState) info).getCurrentAdd());
             } else {
-                playerScoreTextView.setText(((PigGameState) info).getScore1());
-                oppScoreTextView.setText(((PigGameState) info).getScore0());
-                turnTotalTextView.setText(((PigGameState) info).getCurrentAdd());
+                playerScoreTextView.setText("" + ((PigGameState) info).getScore1());
+                oppScoreTextView.setText("" + ((PigGameState) info).getScore0());
+                turnTotalTextView.setText("" + ((PigGameState) info).getCurrentAdd());
             }
             if(((PigGameState) info).getDieVal() == 1) {
                 dieImageButton.setImageResource(R.drawable.face1);
@@ -96,8 +96,13 @@ public class PigHumanPlayer extends GameHumanPlayer implements OnClickListener {
      * 		the button that was clicked
      */
     public void onClick(View button) {
-        Button hold = findViewByID(R.id.holdButton);
-        if(button == hold)
+        if(button == holdButton) {
+            PigHoldAction action = new PigHoldAction(this);
+            game.sendAction(action);
+        } else if(button == dieImageButton) {
+            PigRollAction action = new PigRollAction(this);
+            game.sendAction(action);
+        }
     }// onClick
 
     /**

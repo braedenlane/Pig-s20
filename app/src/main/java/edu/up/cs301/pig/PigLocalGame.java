@@ -46,29 +46,29 @@ public class PigLocalGame extends LocalGame {
         if(action instanceof PigHoldAction) {
             if(offState.getTurn() == 0) {
                 offState.setScore0(offState.getScore0() + offState.getCurrentAdd());
-                if(super.players.length == 2) {
+                if(players.length == 2) {
                     offState.setTurn(1);
                 }
             } else if(this.offState.getTurn() == 1) {
                 offState.setScore1(offState.getScore1() + offState.getCurrentAdd());
-                if(super.players.length == 2) {
+                if(players.length == 2) {
                     offState.setTurn(0);
                 }
             }
             offState.setCurrentAdd(0);
             return true;
         } else if(action instanceof PigRollAction) {
-            offState.setDieVal((int)(1+(Math.random()*5)));
+            offState.setDieVal((int)(1+(Math.random()*6)));
             if(offState.getDieVal() != 1) {
                 offState.setCurrentAdd(offState.getCurrentAdd() + offState.getDieVal());
             } else {
                 offState.setCurrentAdd(0);
-            }
-            if(players.length == 2) {
-                if(offState.getTurn() == 0) {
-                    offState.setTurn(1);
-                } else {
-                    offState.setTurn(0);
+                if (players.length == 2) {
+                    if (offState.getTurn() == 0) {
+                        offState.setTurn(1);
+                    } else {
+                        offState.setTurn(0);
+                    }
                 }
             }
             return true;
@@ -96,9 +96,9 @@ public class PigLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
         if(offState.getScore0() >= 50) {
-            return playerNames[0] + " has won the game with " + offState.getScore0() + "points.";
+            return playerNames[0] + " has won the game with " + offState.getScore0() + " points. ";
         } else if(offState.getScore1() >= 50) {
-            return playerNames[1] + " has won the game with " + offState.getScore1() + "points.";
+            return playerNames[1] + " has won the game with " + offState.getScore1() + " points. ";
         } else {
             return null;
         }

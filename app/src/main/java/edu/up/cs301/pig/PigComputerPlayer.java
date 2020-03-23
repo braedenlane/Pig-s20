@@ -33,7 +33,7 @@ public class PigComputerPlayer extends GameComputerPlayer {
         if(state.getTurn() != playerNum) {
             return;
         } else {
-            int chance = (int)(1+(Math.random()*1));
+            int chance = (int)(1+(Math.random()*2));
             if(chance == 1) {
                 PigRollAction action = new PigRollAction(this);
                 game.sendAction(action);

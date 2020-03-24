@@ -20,53 +20,55 @@ public class SmartComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        PigGameState state = (PigGameState)info;
-        if(state.getTurn() != playerNum) {
-            return;
-        } else {
-            if (playerNum == 0) {
-                if (state.getCurrentAdd() >= 50 - state.getScore0()) {
-                    PigHoldAction action = new PigHoldAction(this);
-                    game.sendAction(action);
-                } else {
-                    if (state.getScore1() > state.getScore0() && (state.getScore1() - state.getScore0() > 10)) {
-                        if (state.getCurrentAdd() >= state.getScore1() - state.getScore0()) {
-                            PigHoldAction action = new PigHoldAction(this);
-                            game.sendAction(action);
-                        } else {
-                            PigRollAction action = new PigRollAction(this);
-                            game.sendAction(action);
-                        }
+        if(info instanceof PigGameState) {
+            PigGameState state = (PigGameState) info;
+            if (state.getTurn() != playerNum) {
+                return;
+            } else {
+                if (playerNum == 0) {
+                    if (state.getCurrentAdd() >= 50 - state.getScore0()) {
+                        PigHoldAction action = new PigHoldAction(this);
+                        game.sendAction(action);
                     } else {
-                        if (state.getCurrentAdd() >= 10) {
-                            PigHoldAction action = new PigHoldAction(this);
-                            game.sendAction(action);
+                        if (state.getScore1() > state.getScore0() && (state.getScore1() - state.getScore0() > 10)) {
+                            if (state.getCurrentAdd() >= state.getScore1() - state.getScore0()) {
+                                PigHoldAction action = new PigHoldAction(this);
+                                game.sendAction(action);
+                            } else {
+                                PigRollAction action = new PigRollAction(this);
+                                game.sendAction(action);
+                            }
                         } else {
-                            PigRollAction action = new PigRollAction(this);
-                            game.sendAction(action);
+                            if (state.getCurrentAdd() >= 10) {
+                                PigHoldAction action = new PigHoldAction(this);
+                                game.sendAction(action);
+                            } else {
+                                PigRollAction action = new PigRollAction(this);
+                                game.sendAction(action);
+                            }
                         }
                     }
-                }
-            } else {
-                if (state.getCurrentAdd() >= 50 - state.getScore1()) {
-                    PigHoldAction action = new PigHoldAction(this);
-                    game.sendAction(action);
                 } else {
-                    if (state.getScore0() > state.getScore1() && (state.getScore0() - state.getScore1() > 10)) {
-                        if (state.getCurrentAdd() >= state.getScore0() - state.getScore1()) {
-                            PigHoldAction action = new PigHoldAction(this);
-                            game.sendAction(action);
-                        } else {
-                            PigRollAction action = new PigRollAction(this);
-                            game.sendAction(action);
-                        }
+                    if (state.getCurrentAdd() >= 50 - state.getScore1()) {
+                        PigHoldAction action = new PigHoldAction(this);
+                        game.sendAction(action);
                     } else {
-                        if (state.getCurrentAdd() >= 10) {
-                            PigHoldAction action = new PigHoldAction(this);
-                            game.sendAction(action);
+                        if (state.getScore0() > state.getScore1() && (state.getScore0() - state.getScore1() > 10)) {
+                            if (state.getCurrentAdd() >= state.getScore0() - state.getScore1()) {
+                                PigHoldAction action = new PigHoldAction(this);
+                                game.sendAction(action);
+                            } else {
+                                PigRollAction action = new PigRollAction(this);
+                                game.sendAction(action);
+                            }
                         } else {
-                            PigRollAction action = new PigRollAction(this);
-                            game.sendAction(action);
+                            if (state.getCurrentAdd() >= 10) {
+                                PigHoldAction action = new PigHoldAction(this);
+                                game.sendAction(action);
+                            } else {
+                                PigRollAction action = new PigRollAction(this);
+                                game.sendAction(action);
+                            }
                         }
                     }
                 }

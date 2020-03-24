@@ -29,17 +29,19 @@ public class DumbComputerPlayer extends GameComputerPlayer {
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        PigGameState state = (PigGameState)info;
-        if(state.getTurn() != playerNum) {
-            return;
-        } else {
-            int chance = (int)(1+(Math.random()*2));
-            if(chance == 1) {
-                PigRollAction action = new PigRollAction(this);
-                game.sendAction(action);
+        if(info instanceof PigGameState) {
+            PigGameState state = (PigGameState) info;
+            if (state.getTurn() != playerNum) {
+                return;
             } else {
-                PigHoldAction action = new PigHoldAction(this);
-                game.sendAction(action);
+                int chance = (int) (1 + (Math.random() * 2));
+                if (chance == 1) {
+                    PigRollAction action = new PigRollAction(this);
+                    game.sendAction(action);
+                } else {
+                    PigHoldAction action = new PigHoldAction(this);
+                    game.sendAction(action);
+                }
             }
         }
     }//receiveInfo

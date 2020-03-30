@@ -3,11 +3,11 @@ package edu.up.cs301.pig;
 import edu.up.cs301.game.GameFramework.infoMessage.GameState;
 
 public class PigGameState extends GameState {
-    private int turn;
-    private int score0;
-    private int score1;
-    private int currentAdd;
-    private int dieVal;
+    public int turn;
+    public int score0;
+    public int score1;
+    public int currentAdd;
+    public int dieVal;
 
     public PigGameState() {
         this.turn = 0;
